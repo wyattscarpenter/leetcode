@@ -6,12 +6,12 @@ from functools import cache
 
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        """This is (or can be) a classic memoiztion-type problem, which is to say I'm going to use functools.cache, ie a hashmap."""
+        """This is (or can be) a classic memoiztion-type problem, which is to say I'm going to use functools.cache, ie a hashmap.
+        However, this exceeded the memory limit, :/"""
         last_num_index = len(nums) - 1
         @cache
         def product_of(start, end):
-            """Both sides of this are inclusive btw
-            just doing it as a prefix sum exceeded the memory limit, :/"""
+            """Both sides of this are inclusive btw"""
             if end < 0 or start > last_num_index:
                 return 1 # multiplicative identity
             if start == end:
