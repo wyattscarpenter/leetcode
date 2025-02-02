@@ -70,4 +70,19 @@ class Solution4:
         print(prefix, suffix)
         return [prefix[i]*suffix[i] for i in range(len(nums))] #other solutions omit this step, as you can build it up during the other loops, which is a cool move I didn't bother to do.
 
-Solution = Solution4
+class Solution5:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        """I adapted https://leetcode.com/problems/product-of-array-except-self/solutions/6362011/go-time-o-n-no-extra-space-o-1 into python to see how it would do on the last test input (maybe python is just bad"""
+        # my initial pre-computing solution (not written down, because it didn't work well enough) was very similar to this, in that it used a "carry" accumulator variable, and then a list comprehension instead of a for loop. But that got very confusing for the second loop (which goes in reverse). Also the first loop, come to think of it.
+        results = []
+        prefix = 1
+        for i, num in enumerate(nums):
+            results.append(prefix)
+            prefix = num * prefix
+        suffix = 1
+        for i, num in reversed(list(enumerate(nums))):
+            results[i] = suffix * results[i]
+            suffix = num * suffix
+        return results
+
+Solution = Solution5
