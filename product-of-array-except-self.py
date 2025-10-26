@@ -5,7 +5,7 @@ We are DONE saying "followup: can you give the good solution tho?"; good solutio
 from functools import cache
 
 class Solution1:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
         """This is (or can be) a classic memoiztion-type problem, which is to say I'm going to use functools.cache, ie a hashmap.
         However, this exceeded the memory limit, :/"""
         last_num_index = len(nums) - 1
@@ -22,7 +22,7 @@ class Solution1:
         return [product_of(0, i-1) * product_of(i+1, last_num_index) for i, _ in enumerate(nums)]
 
 class Solution2:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
         """This was supposed to be a performance improvement to Solution1, but it still OOMs so who knows if it would be."""
         last_num_index = len(nums) - 1
         @cache
@@ -40,7 +40,7 @@ class Solution2:
         return [product_of(0, i-1) * product_of(i+1, last_num_index) for i, _ in enumerate(nums)]
 
 class Solution3:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
         """Precompute prefix and suffix sums in their own arrays, first.
         There's probably a cleaner way to do this, but I just wrote some little loops idk.
         This got a Time Limit Exceeded on case 24, which is pages and pages of 1s..."""
@@ -55,7 +55,7 @@ class Solution3:
         return [prefix[i]*suffix[i] for i in range(len(nums))]
 
 class Solution4:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
         """Precompute prefix and suffix sums in their own arrays, first.
         There's probably a cleaner way to do this, but I just wrote some little loops idk."""
         if all(n==1 for n in nums): #dirty little hack for a dirty little input
@@ -71,8 +71,8 @@ class Solution4:
         return [prefix[i]*suffix[i] for i in range(len(nums))] #other solutions omit this step, as you can build it up during the other loops, which is a cool move I didn't bother to do.
 
 class Solution5:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        """I adapted https://leetcode.com/problems/product-of-array-except-self/solutions/6362011/go-time-o-n-no-extra-space-o-1 into python to see how it would do on the last test input (maybe python is just bad"""
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
+        """I adapted https://leetcode.com/problems/product-of-array-except-self/solutions/6362011/go-time-o-n-no-extra-space-o-1 into python to see how it would do on the last test input (maybe python is just bad)"""
         # my initial pre-computing solution (not written down, because it didn't work well enough) was very similar to this, in that it used a "carry" accumulator variable, and then a list comprehension instead of a for loop. But that got very confusing for the second loop (which goes in reverse). Also the first loop, come to think of it.
         results = []
         prefix = 1
